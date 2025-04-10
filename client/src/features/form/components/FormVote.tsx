@@ -43,7 +43,11 @@ export default function FormVote({ form, IsTheme }: FormVoteProps) {
 
   const disableOption = () => {
     if (user) {
-      if(!themeWithForm?.active) return true;
+      if(themeWithForm && !themeWithForm?.active) 
+      {
+        return true;
+
+      }
       else{
       if (
         user.role == "Profesor" &&
@@ -62,8 +66,10 @@ export default function FormVote({ form, IsTheme }: FormVoteProps) {
             (userOption) => userOption.user.id === user.id
           )
         )
-      )
-        return true;
+      ){
+                return true;
+
+      }
       const currentDate = new Date();
       const formEndDate = new Date(form.endDate);
       if (currentDate > formEndDate) return true;
@@ -74,7 +80,8 @@ export default function FormVote({ form, IsTheme }: FormVoteProps) {
   };
 
   useEffect(()=>{
-    dispatch(fetchThemeByMessageIdAsync(form.messageId));
+    if(form.messageId>0)
+      dispatch(fetchThemeByMessageIdAsync(form.messageId));
   }, [form])
 
   const handleSubmit = async () => {

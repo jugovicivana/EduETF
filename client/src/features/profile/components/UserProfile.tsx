@@ -168,80 +168,74 @@ const UserProfile = () => {
           </Typography>
         </Box>
 
-        <Grid container spacing={2}>
-          {isEditing ? (
-            <>
-              <Grid item xs={12}>
-                <TextField
-                  label="Ime"
-                  name="firstName"
-                  fullWidth
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  required 
-                  error={!formData.firstName} 
-                  helperText={!formData.firstName ? "Ime je obavezno" : ""}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Prezime"
-                  name="lastName"
-                  fullWidth
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  required
-                  error={!formData.lastName} 
-                  helperText={!formData.lastName ? "Prezime je obavezno" : ""}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Korisničko ime"
-                  name="username"
-                  fullWidth
-                  value={user!.username}
-                  disabled
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Email"
-                  name="email"
-                  fullWidth
-                  value={user!.email}
-                  disabled
-                />
-              </Grid>
-              <Box sx={{ textAlign: "center", margin: 2, width: "100%" }}>
-                <LoadingButton
-                  loading={status == "pendingUpdateUser"}
-                  loadingIndicator={
-                    <CircularProgress size={18} sx={{ color: "white" }} /> 
-                  }
-                  variant="contained"
-                  sx={{
-                    backgroundColor: "text.primary",
-                    color: "background.default",
-                    mr: 1,
-                  }}
-                  onClick={handleSubmit}
-                  disabled={!isFormValid}
-                >
-                  Sačuvaj izmjene
-                </LoadingButton>
-                <Button
-                  variant="outlined"
-                  sx={{ color: "text.primary" }}
-                  onClick={() => {
-                    setFormData(initialData); 
-                    setIsEditing(false);
-                  }}
-                >
-                  Odustani
-                </Button>
-              </Box>
-            </>
+        <Box component="div" sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+  {isEditing ? (
+    <>
+      <TextField
+        label="Ime"
+        name="firstName"
+        fullWidth
+        value={formData.firstName}
+        onChange={handleChange}
+        required
+        error={!formData.firstName}
+        helperText={!formData.firstName ? "Ime je obavezno" : ""}
+        sx={{ 
+          '& .MuiOutlinedInput-root': { borderRadius: 1 },
+        }}
+      />
+
+      <TextField
+        label="Prezime"
+        name="lastName"
+        fullWidth
+        value={formData.lastName}
+        onChange={handleChange}
+        required
+        error={!formData.lastName}
+        helperText={!formData.lastName ? "Prezime je obavezno" : ""}
+      />
+
+      <TextField
+        label="Korisničko ime"
+        name="username"
+        fullWidth
+        value={user!.username}
+        disabled
+      />
+
+      <TextField
+        label="Email"
+        name="email"
+        fullWidth
+        value={user!.email}
+        disabled
+      />
+
+      <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+        <LoadingButton
+          loading={status == "pendingUpdateUser"}
+          loadingIndicator={<CircularProgress size={18} sx={{ color: "white" }} />}
+          variant="contained"
+          sx={{ flex: 1 }}
+          onClick={handleSubmit}
+          disabled={!isFormValid}
+        >
+          Sačuvaj izmjene
+        </LoadingButton>
+        
+        <Button
+          variant="outlined"
+          sx={{ flex: 1 }}
+          onClick={() => {
+            setFormData(initialData);
+            setIsEditing(false);
+          }}
+        >
+          Odustani
+        </Button>
+      </Box>
+    </>
           ) : (
             <>
               <Grid item xs={12}>
@@ -306,7 +300,7 @@ const UserProfile = () => {
               </Box>
             </>
           )}
-        </Grid>
+        </Box>
       </Paper>
     </Box>
   );
